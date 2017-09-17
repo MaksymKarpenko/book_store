@@ -30,6 +30,7 @@
   "homepage": "https://github.com/MaksymKarpenko/book_store#readme",
   "devDependencies": {
     "express": "^4.15.4",
+    "redux-logger": "^3.0.6",
     "webpack": "^3.6.0"
   },
   "dependencies": {
