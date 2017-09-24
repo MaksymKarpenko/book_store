@@ -54,7 +54,6 @@ class Cart extends React.Component {
 	}
 	renderCart(){
 		const cartItemsList = this.props.cart.map(function(cartArr){
-			console.log(cartArr)
 			return (
 				<Panel key={cartArr._id}>
 					<Row>
@@ -76,7 +75,21 @@ class Cart extends React.Component {
 							</ButtonGroup>
 						</Col>
 					</Row>
-					<Modal show={this.state.showModal} onHide={this.close.bind(this)}>
+				</Panel>
+			);
+		}, this);
+		return(
+			<Panel header="Cart" bsStyle="primary">
+				{cartItemsList}
+				<Row>
+					<Col xs={12}>
+						<h6>Total amount: {this.props.totalAmount}</h6>
+						<Button onClick={this.open.bind(this)} bsStyle="success" bsSize="small">
+							PROCEED TO CHECKOUT
+						</Button>
+					</Col>
+				</Row>
+				<Modal show={this.state.showModal} onHide={this.close.bind(this)}>
 			          <Modal.Header closeButton>
 			            <Modal.Title>Thank you</Modal.Title>
 			          </Modal.Header>
@@ -86,25 +99,11 @@ class Cart extends React.Component {
 			           </Modal.Body>
 			          <Modal.Footer>
 			          	<Col xs={6}>
-			          		<h6>total $:</h6>
+			          		<h6>total $: {this.props.totalAmount}</h6>
 			          	</Col>
 			            <Button onClick={this.close.bind(this)}>Close</Button>
 			          </Modal.Footer>
 			        </Modal>
-				</Panel>
-			);
-		}, this);
-		return(
-			<Panel header="Cart" bsStyle="primary">
-				{cartItemsList}
-				<Row>
-					<Col xs={12}>
-						<h6>Total amount</h6>
-						<Button onClick={this.open.bind(this)} bsStyle="success" bsSize="small">
-							PROCEED TO CHECKOUT
-						</Button>
-					</Col>
-				</Row>
 			</Panel>
 		)
 	}
@@ -115,7 +114,8 @@ class Cart extends React.Component {
 
 function mapStateToProps(state){
 	return {
-		cart: state.cart.cart
+		cart: state.cart.cart,
+		totalAmount: state.cart.totalAmount
 	}
 }
 

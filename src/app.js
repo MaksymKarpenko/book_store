@@ -1,64 +1,35 @@
 "use strict"
+const css = require('./style/style.scss');
 import React, { Component } from 'react';
 import { render } from 'react-dom';
 import { Provider } from 'react-redux';
+import { Router, Route, IndexRoute, browserHistory } from 'react-router';
 
 import { applyMiddleware, createStore } from 'redux';
 import logger from 'redux-logger';
 import reducers from './reducers/index';
 import {addToCart} from './actions/cartActions';
-import {postBooks, deleteBooks, updateBooks, getBooks} from './actions/booksActions';
 
 const middleware = applyMiddleware(logger);
 const store = createStore(reducers, middleware);
 
 import BooksList from './components/pages/booksList';
-render(
+import Cart from './components/pages/cart';
+import BooksForm from './components/pages/booksForm';
+import Main from './main';
+
+const Routes = (
 	<Provider store={store}>
-		<BooksList />
-	</Provider>, document.getElementById('app')
-);
-/*
-store.dispatch(getBooks(
-[{
-	id: 1,
-	title: 'this is the book title dgfdfdg',
-	description: 'this is the book description',
-	price: 44.33
-},
-{
-	id: 2,
-	title: 'this is the second book title dfgfg',
-	description: 'this is the second book description',
-	price: 50
-}]))
-
-store.dispatch(postBooks(
-	[{
-			id: 1,
-			title: 'this is the book title dgfdfdg',
-			description: 'this is the book description',
-			price: 44.33
-		},
-		{
-			id: 2,
-			title: 'this is the second book title dfgfg',
-			description: 'this is the second book description',
-			price: 50
-		}]
-	)	
+		<Router history={browserHistory}>
+			<Route path='/' component={Main}>
+				<IndexRoute component={BooksList} />
+				<Route path="/admin" component={BooksForm} />
+				<Route path="/cart" component={Cart} />
+			</Route>
+		</Router>
+	</Provider>
 )
-store.dispatch(deleteBooks(
-	{ id: 1}
-))
 
-store.dispatch(updateBooks(
-	{
-		id: 2,
-		title: 'Learn React in 24h'
-	}
-))
-
-
-store.dispatch(addToCart([{id: 1}]));
-*/
+render(
+	Routes, document.getElementById('app')
+);
