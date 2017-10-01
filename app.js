@@ -12,10 +12,8 @@ var app = express();
 
 // view engine setup
 //app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'html');
+//app.set('view engine', 'index.html');
 
-// uncomment after placing your favicon in /public
-//app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -28,7 +26,7 @@ mongoose.connect('mongodb://localhost:27017/bookshop', {useMongoClient:true});
 var Books = require('./models/books.js');
 
 app.post('./books', function(req, res){
-	var books = req.body;
+	var book = req.body;
 	Books.create(book, function(err, books){
 		if(err){
 			throw err;
