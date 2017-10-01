@@ -5,7 +5,7 @@ var path = require("path");
 module.exports = {
     entry: './src/app.js',
     output: {
-        path: path.resolve(__dirname, "dist"),
+        path: path.resolve(__dirname, "public"),
         filename: 'app.bundle.js'
     },
     module: {
@@ -15,7 +15,7 @@ module.exports = {
                 use: ExtractTextPlugin.extract({
                     fallback: 'style-loader',
                     use: ['css-loader','sass-loader'],
-                    publicPath: '/dist'
+                    publicPath: '/public'
                 })
             },{
             	test: /\.js$/,
@@ -25,7 +25,7 @@ module.exports = {
         ]
     },
     devServer: {
-        contentBase: path.join(__dirname, "dist"),
+        contentBase: path.join(__dirname, "public"),
         compress: true,
         stats: "errors-only",
         open: true
